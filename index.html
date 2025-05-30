@@ -1,32 +1,339 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>A evolução da tecnologia sobre a exploração de águas profundas</title>
-    <link rel="stylesheet" type="text/css" href="style.css"> <!-- Link para o CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoops Universe - Basketball Passion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(0) rotate(180deg); }
+            75% { transform: translateY(-10px) rotate(270deg); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes dribble {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(50px) scale(0.9); }
+        }
+        
+        .basketball {
+            background: radial-gradient(circle at 30% 30%, #ff8c00, #e67300 10%, #cc6600 20%, #8b4513 60%);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .basketball:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #000;
+            transform: translateY(-50%);
+        }
+        
+        .basketball:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: #000;
+            transform: translateX(-50%);
+        }
+        
+        .basketball-curve {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #000;
+            border-radius: 50%;
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+            transform: rotate(45deg);
+        }
+        
+        .basketball-curve:nth-child(2) {
+            transform: rotate(-45deg);
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .animate-dribble {
+            animation: dribble 1s infinite;
+        }
+        
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        .animate-spin {
+            animation: spin 3s linear infinite;
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .court-bg {
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="50" height="50" x="0" y="0" fill="%23ff5722"/><rect width="50" height="50" x="50" y="0" fill="%23e64a19"/><rect width="50" height="50" x="0" y="50" fill="%23e64a19"/><rect width="50" height="50" x="50" y="50" fill="%23ff5722"/></svg>');
+            background-size: 100px 100px;
+        }
+        
+        .hoop {
+            position: relative;
+            width: 120px;
+            height: 80px;
+            border: 4px solid #ff9800;
+            border-radius: 50% 50% 0 0;
+            border-bottom: none;
+        }
+        
+        .hoop:before {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: #ff9800;
+        }
+        
+        .hoop:after {
+            content: "";
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 40px;
+            background: #ff9800;
+        }
+        
+        .backboard {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 60px;
+            background: #607d8b;
+            border: 4px solid #455a64;
+        }
+    </style>
 </head>
-<body>
-    <h1>A evolução da tecnologia sobre a exploração de águas profundas</h1>
-    <p>O avanço da tecnologia na exploração de águas profundas tem sido fundamental para ampliar o conhecimento sobre áreas remotas dos oceanos, extrair recursos e preservar ecossistemas. Nos últimos anos, diversas inovações foram introduzidas para permitir uma exploração mais segura, eficiente e sustentável em grandes profundidades. Aqui estão alguns dos principais avanços:</p>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="court-bg text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-12 h-12 basketball animate-spin"></div>
+                <h1 class="text-2xl font-bold">Hoops Universe</h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#home" class="hover:text-orange-400 transition">Home</a></li>
+                    <li><a href="#stats" class="hover:text-orange-400 transition">Stats</a></li>
+                    <li><a href="#players" class="hover:text-orange-400 transition">Players</a></li>
+                    <li><a href="#history" class="hover:text-orange-400 transition">History</a></li>
+                    <li><a href="#contact" class="hover:text-orange-400 transition">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
 
-    <ol>
-        <li>Veículos Remotamente Operados (ROVs) e Veículos Autônomos Submarinos (AUVs): Os ROVs e AUVs são equipamentos essenciais para a exploração de águas profundas. Eles permitem que cientistas e engenheiros operem em locais de difícil acesso e em grandes profundidades, onde a pressão da água é extrema. Os AUVs, por exemplo, podem mapear o fundo do oceano, coletar dados e realizar inspeções de estruturas submarinas, tudo de forma autônoma.</li>
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden court-bg text-white py-20">
+        <div class="absolute top-20 left-10 w-16 h-16 basketball animate-bounce"></div>
+        <div class="absolute top-1/3 right-20 w-20 h-20 basketball animate-float"></div>
+        <div class="absolute bottom-10 left-1/4 w-24 h-24 basketball animate-dribble"></div>
+        
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">Experience the <span class="text-orange-400">Game</span></h2>
+                <p class="text-xl mb-8">Dive into the world of basketball with stats, player profiles, and the latest news from courts around the globe.</p>
+                <div class="flex space-x-4">
+                    <button class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-bold transition transform hover:scale-105">
+                        Explore Now
+                    </button>
+                    <button class="border-2 border-white hover:bg-white hover:text-black text-white px-6 py-3 rounded-full font-bold transition transform hover:scale-105">
+                        Watch Highlights
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2 relative flex justify-center">
+                <div class="relative">
+                    <div class="backboard"></div>
+                    <div class="hoop"></div>
+                    <div class="w-24 h-24 basketball absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-bounce" style="animation-delay: 0.5s;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <li>Sensores Avançados e Comunicação Subaquática: Os sensores utilizados atualmente em operações submarinas são muito mais precisos e resistentes do que os de gerações anteriores. Eles permitem medir variáveis como pressão, temperatura, salinidade e a presença de certos elementos químicos no oceano. Além disso, a comunicação subaquática, embora ainda um desafio, vem evoluindo com o uso de sistemas acústicos e ópticos que permitem o envio de dados em tempo real, facilitando a navegação e controle de equipamentos.</li>
+    <!-- Stats Section -->
+    <section id="stats" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-16 relative">
+                <span class="relative z-10 px-4 bg-white">Basketball Stats</span>
+                <span class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-300 z-0"></span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Stat 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg hover-scale relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 basketball opacity-10 animate-spin"></div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 basketball animate-float mr-4"></div>
+                        <h3 class="text-2xl font-bold">Points Leaders</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span>1. Michael Jordan</span>
+                            <span class="font-bold">32,292</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span>2. LeBron James</span>
+                            <span class="font-bold">38,652</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span>3. Kareem Abdul-Jabbar</span>
+                            <span class="font-bold">38,387</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Stat 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg hover-scale relative overflow-hidden">
+                    <div class="absolute -bottom-10 -left-10 w-32 h-32 basketball opacity-10 animate-spin" style="animation-direction: reverse;"></div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 basketball animate-bounce mr-4"></div>
+                        <h3 class="text-2xl font-bold">Assists Leaders</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span>1. John Stockton</span>
+                            <span class="font-bold">15,806</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span>2. Jason Kidd</span>
+                            <span class="font-bold">12,091</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span>3. Chris Paul</span>
+                            <span class="font-bold">11,501</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Stat 3 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg hover-scale relative overflow-hidden">
+                    <div class="absolute -top-5 -left-5 w-20 h-20 basketball opacity-20 animate-float"></div>
+                    <div class="absolute -bottom-5 -right-5 w-20 h-20 basketball opacity-20 animate-float" style="animation-delay: 1s;"></div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 basketball animate-dribble mr-4"></div>
+                        <h3 class="text-2xl font-bold">Rebounds Leaders</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span>1. Wilt Chamberlain</span>
+                            <span class="font-bold">23,924</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span>2. Bill Russell</span>
+                            <span class="font-bold">21,620</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span>3. Kareem Abdul-Jabbar</span>
+                            <span class="font-bold">17,440</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <li>Perfuração em Águas Profundas: A exploração de petróleo e gás em águas profundas tem demandado avanços em tecnologia de perfuração. Equipamentos como blowout preventers e risers mais resistentes ajudam a controlar pressões extremas e previnem acidentes. O uso de inteligência artificial e big data também está ajudando a otimizar as operações, prever falhas e melhorar a segurança.</li>
-
-        <li>Exploração Mineral e Biotecnologia: Nas últimas décadas, a exploração de minerais raros (como manganês, cobre, cobalto e níquel) nas profundezas oceânicas ganhou atenção. Isso envolve tecnologias para coleta e processamento desses recursos sem danificar os ecossistemas. Na biotecnologia, a descoberta de organismos extremófilos (que vivem em ambientes hostis) abriu portas para a criação de medicamentos, novos materiais e biocombustíveis.</li>
-
-        <li>Mapeamento do Fundo do Mar com Imagens de Alta Resolução: O uso de sonares de alta frequência e mapeamento 3D permite criar imagens detalhadas do fundo do oceano. Isso facilita a compreensão da geologia submarina, a localização de recursos e o estudo dos habitats. Além disso, a inteligência artificial está ajudando a analisar imagens de sonar de forma mais rápida e precisa.</li>
-    </ol>
-
-    <p>Esses avanços estão ajudando não só a expandir a exploração de recursos, mas também a melhorar a proteção ambiental e o entendimento dos ecossistemas marinhos. No entanto, a exploração das águas profundas também enfrenta desafios éticos e ambientais, pois há riscos de danos irreparáveis para a biodiversidade.</p>
-
-    <p>Para mais informações, clique aqui embaixo:</p>
-    <button onclick="window.location.href='https://blogdaengenharia.com/engenharia/engenharia-de-petroleo/engenharia-de-petroleo-exploracao-em-aguas-profundas/#:~:text=Uma%20das%20grandes%20inova%C3%A7%C3%B5es%20na,para%20opera%C3%A7%C3%B5es%20em%20condi%C3%A7%C3%B5es%20profundas.'">Link para mais informações</button>
-
-    <h2>Assista ao vídeo sobre a exploração de águas profundas:</h2>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/5Y_VfaPPARk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-</body>
+    <!-- Players Section -->
+    <section id="players" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-16 relative">
+                <span class="relative z-10 px-4 bg-gray-100">Legendary Players</span>
+                <span class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-300 z-0"></span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Player 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-scale transform transition">
+                    <div class="relative h-64 bg-gradient-to-b from-blue-900 to-blue-700 flex items-end justify-center">
+                        <div class="absolute top-4 right-4 w-12 h-12 basketball animate-float"></div>
+                        <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/893.png" alt="Michael Jordan" class="h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Michael Jordan</h3>
+                        <p class="text-gray-600 mb-4">6× NBA champion, 5× MVP, 14× All-Star</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-semibold text-orange-500">Chicago Bulls</span>
+                            <span class="text-xs bg-gray-200 px-2 py-1 rounded">SG</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Player 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-scale transform transition">
+                    <div class="relative h-64 bg-gradient-to-b from-purple-900 to-purple-700 flex items-end justify-center">
+                        <div class="absolute top-4 left-4 w-12 h-12 basketball animate-bounce"></div>
+                        <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png" alt="LeBron James" class="h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">LeBron James</h3>
+                        <p class="text-gray-600 mb-4">4× NBA champion, 4× MVP, 19× All-Star</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-semibold text-orange-500">Los Angeles Lakers</span>
+                            <span class="text-xs bg-gray-200 px-2 py-1 rounded">SF</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Player 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-scale transform transition">
+                    <div class="relative h-64 bg-gradient-to-b from-green-900 to-green-700 flex items-end justify-center">
+                        <div class="absolute bottom-4 right-4 w-12 h-12 basketball animate-spin"></div>
+                        <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/76003.png" alt="Kobe Bryant" class="h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Kobe Bryant</h3>
+                        <p class="text-gray-600 mb-4">5× NBA champion, 1× MVP, 18× All-Star</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-semibold text-orange-500">Los Angeles Lakers</span>
+                            <span class="text-xs bg-gray-200 px-2 py-1 rounded">SG</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Player 4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-scale transform transition">
+                    <div class="relative h-64 bg-gradient-to-b from-red-900 to-red-700 flex items-end justify-center">
+                        <div class="absolute top-
 </html>
