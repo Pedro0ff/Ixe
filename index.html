@@ -1,339 +1,704 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoops Universe - Basketball Passion</title>
+    <title>Harmony Hub - Seu Portal Musical</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-20px) rotate(90deg); }
-            50% { transform: translateY(0) rotate(180deg); }
-            75% { transform: translateY(-10px) rotate(270deg); }
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --text: #e6e6e6;
+            --highlight: #e94560;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            transition: all 0.3s ease;
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        .font-elegant {
+            font-family: 'Playfair Display', serif;
         }
         
-        @keyframes dribble {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(50px) scale(0.9); }
+        /* Accessibility classes */
+        .font-size-small {
+            font-size: 0.9rem;
         }
         
-        .basketball {
-            background: radial-gradient(circle at 30% 30%, #ff8c00, #e67300 10%, #cc6600 20%, #8b4513 60%);
-            border-radius: 50%;
-            position: relative;
+        .font-size-medium {
+            font-size: 1rem;
         }
         
-        .basketball:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #000;
-            transform: translateY(-50%);
+        .font-size-large {
+            font-size: 1.2rem;
         }
         
-        .basketball:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 2px;
-            background: #000;
-            transform: translateX(-50%);
+        .font-style-normal {
+            font-family: 'Montserrat', sans-serif;
         }
         
-        .basketball-curve {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid #000;
-            border-radius: 50%;
-            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-            transform: rotate(45deg);
+        .font-style-dyslexic {
+            font-family: 'OpenDyslexic', sans-serif;
         }
         
-        .basketball-curve:nth-child(2) {
-            transform: rotate(-45deg);
+        .color-scheme-dark {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --text: #e6e6e6;
+            --highlight: #e94560;
         }
         
-        .hover-scale:hover {
-            transform: scale(1.05);
+        .color-scheme-light {
+            --primary: #f8f9fa;
+            --secondary: #e9ecef;
+            --accent: #ced4da;
+            --text: #212529;
+            --highlight: #d90429;
+        }
+        
+        .color-scheme-high-contrast {
+            --primary: #000000;
+            --secondary: #333333;
+            --accent: #666666;
+            --text: #ffffff;
+            --highlight: #ff0000;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .hover-grow {
             transition: transform 0.3s ease;
         }
         
-        .animate-dribble {
-            animation: dribble 1s infinite;
+        .hover-grow:hover {
+            transform: scale(1.05);
         }
         
-        .animate-bounce {
-            animation: bounce 2s infinite;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
         
-        .animate-spin {
-            animation: spin 3s linear infinite;
+        ::-webkit-scrollbar-track {
+            background: var(--secondary);
         }
         
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
         }
         
-        .court-bg {
-            background-image: 
-                linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="50" height="50" x="0" y="0" fill="%23ff5722"/><rect width="50" height="50" x="50" y="0" fill="%23e64a19"/><rect width="50" height="50" x="0" y="50" fill="%23e64a19"/><rect width="50" height="50" x="50" y="50" fill="%23ff5722"/></svg>');
-            background-size: 100px 100px;
-        }
-        
-        .hoop {
-            position: relative;
-            width: 120px;
-            height: 80px;
-            border: 4px solid #ff9800;
-            border-radius: 50% 50% 0 0;
-            border-bottom: none;
-        }
-        
-        .hoop:before {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: #ff9800;
-        }
-        
-        .hoop:after {
-            content: "";
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 40px;
-            background: #ff9800;
-        }
-        
-        .backboard {
-            position: absolute;
-            top: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 60px;
-            background: #607d8b;
-            border: 4px solid #455a64;
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--highlight);
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="color-scheme-dark">
+    <!-- Accessibility Toolbar -->
+    <div class="fixed bottom-4 right-4 z-50 flex flex-col space-y-2">
+        <button id="accessibility-btn" class="bg-[var(--highlight)] text-white p-3 rounded-full shadow-lg hover:opacity-90 transition">
+            <i class="fas fa-universal-access text-xl"></i>
+        </button>
+        
+        <div id="accessibility-panel" class="hidden bg-[var(--secondary)] p-4 rounded-lg shadow-xl w-64">
+            <h3 class="font-semibold mb-3 border-b border-[var(--accent)] pb-2">Acessibilidade</h3>
+            
+            <div class="mb-3">
+                <label class="block text-sm mb-1">Tamanho da Fonte</label>
+                <div class="flex space-x-2">
+                    <button data-size="small" class="font-size-btn bg-[var(--accent)] hover:bg-[var(--highlight)] px-3 py-1 rounded text-sm">A-</button>
+                    <button data-size="medium" class="font-size-btn bg-[var(--highlight)] px-3 py-1 rounded text-sm">A</button>
+                    <button data-size="large" class="font-size-btn bg-[var(--accent)] hover:bg-[var(--highlight)] px-3 py-1 rounded text-sm">A+</button>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label class="block text-sm mb-1">Tipo de Fonte</label>
+                <div class="flex space-x-2">
+                    <button data-font="normal" class="font-style-btn bg-[var(--highlight)] px-3 py-1 rounded text-sm">Normal</button>
+                    <button data-font="dyslexic" class="font-style-btn bg-[var(--accent)] hover:bg-[var(--highlight)] px-3 py-1 rounded text-sm">Dyslexic</button>
+                </div>
+            </div>
+            
+            <div>
+                <label class="block text-sm mb-1">Esquema de Cores</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button data-scheme="dark" class="color-scheme-btn bg-[var(--highlight)] px-2 py-1 rounded text-xs">Escuro</button>
+                    <button data-scheme="light" class="color-scheme-btn bg-[var(--accent)] hover:bg-[var(--highlight)] px-2 py-1 rounded text-xs">Claro</button>
+                    <button data-scheme="high-contrast" class="color-scheme-btn bg-[var(--accent)] hover:bg-[var(--highlight)] px-2 py-1 rounded text-xs">Alto Contraste</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
-    <header class="court-bg text-white sticky top-0 z-50 shadow-lg">
+    <header class="bg-[var(--secondary)] shadow-md sticky top-0 z-40">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <div class="w-12 h-12 basketball animate-spin"></div>
-                <h1 class="text-2xl font-bold">Hoops Universe</h1>
+                <i class="fas fa-music text-2xl text-[var(--highlight)]"></i>
+                <h1 class="text-2xl font-bold font-elegant">Harmony Hub</h1>
             </div>
-            <nav class="hidden md:block">
-                <ul class="flex space-x-8">
-                    <li><a href="#home" class="hover:text-orange-400 transition">Home</a></li>
-                    <li><a href="#stats" class="hover:text-orange-400 transition">Stats</a></li>
-                    <li><a href="#players" class="hover:text-orange-400 transition">Players</a></li>
-                    <li><a href="#history" class="hover:text-orange-400 transition">History</a></li>
-                    <li><a href="#contact" class="hover:text-orange-400 transition">Contact</a></li>
-                </ul>
+            
+            <nav class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-[var(--highlight)] transition">Início</a>
+                <a href="#instruments" class="hover:text-[var(--highlight)] transition">Instrumentos</a>
+                <a href="#songs" class="hover:text-[var(--highlight)] transition">Músicas Famosas</a>
+                <a href="#artists" class="hover:text-[var(--highlight)] transition">Artistas</a>
+                <a href="#about" class="hover:text-[var(--highlight)] transition">Sobre</a>
             </nav>
-            <button class="md:hidden text-2xl">
+            
+            <button id="mobile-menu-btn" class="md:hidden text-xl">
                 <i class="fas fa-bars"></i>
             </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[var(--secondary)] px-4 py-2 border-t border-[var(--accent)]">
+            <div class="flex flex-col space-y-2">
+                <a href="#home" class="py-2 hover:text-[var(--highlight)] transition">Início</a>
+                <a href="#instruments" class="py-2 hover:text-[var(--highlight)] transition">Instrumentos</a>
+                <a href="#songs" class="py-2 hover:text-[var(--highlight)] transition">Músicas Famosas</a>
+                <a href="#artists" class="py-2 hover:text-[var(--highlight)] transition">Artistas</a>
+                <a href="#about" class="py-2 hover:text-[var(--highlight)] transition">Sobre</a>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="relative overflow-hidden court-bg text-white py-20">
-        <div class="absolute top-20 left-10 w-16 h-16 basketball animate-bounce"></div>
-        <div class="absolute top-1/3 right-20 w-20 h-20 basketball animate-float"></div>
-        <div class="absolute bottom-10 left-1/4 w-24 h-24 basketball animate-dribble"></div>
+    <section id="home" class="relative h-screen flex items-center justify-center bg-gradient-to-b from-[var(--primary)] to-[var(--secondary)] overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center"></div>
+        </div>
         
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h2 class="text-4xl md:text-6xl font-bold mb-6">Experience the <span class="text-orange-400">Game</span></h2>
-                <p class="text-xl mb-8">Dive into the world of basketball with stats, player profiles, and the latest news from courts around the globe.</p>
-                <div class="flex space-x-4">
-                    <button class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-bold transition transform hover:scale-105">
-                        Explore Now
-                    </button>
-                    <button class="border-2 border-white hover:bg-white hover:text-black text-white px-6 py-3 rounded-full font-bold transition transform hover:scale-105">
-                        Watch Highlights
-                    </button>
+        <div class="container mx-auto px-4 z-10 text-center animate-fade-in">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 font-elegant">Descubra o Mundo da Música</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Explore instrumentos, aprenda sobre músicas icônicas e mergulhe na história da música conosco.</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#instruments" class="bg-[var(--highlight)] hover:bg-opacity-90 text-white px-8 py-3 rounded-full font-semibold transition hover-grow">Instrumentos</a>
+                <a href="#songs" class="bg-transparent border-2 border-[var(--highlight)] text-[var(--highlight)] hover:bg-[var(--highlight)] hover:text-white px-8 py-3 rounded-full font-semibold transition hover-grow">Músicas Famosas</a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+            <a href="#instruments" class="text-[var(--highlight)] animate-bounce">
+                <i class="fas fa-chevron-down text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Instruments Section -->
+    <section id="instruments" class="py-20 bg-[var(--primary)]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-elegant">Instrumentos Musicais</h2>
+                <p class="max-w-2xl mx-auto text-[var(--text)] opacity-80">Explore os diferentes instrumentos que compõem o mundo da música.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Instrument Card 1 -->
+                <div class="bg-[var(--secondary)] rounded-xl overflow-hidden shadow-lg hover-grow transition-all duration-300">
+                    <div class="h-48 bg-[url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Violão</h3>
+                        <p class="text-[var(--text)] opacity-80 mb-4">Instrumento de cordas dedilhadas, com um corpo oco e geralmente seis cordas.</p>
+                        <a href="#" class="text-[var(--highlight)] font-medium flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Instrument Card 2 -->
+                <div class="bg-[var(--secondary)] rounded-xl overflow-hidden shadow-lg hover-grow transition-all duration-300">
+                    <div class="h-48 bg-[url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Piano</h3>
+                        <p class="text-[var(--text)] opacity-80 mb-4">Instrumento musical de teclas, cordas percutidas e caixa de ressonância.</p>
+                        <a href="#" class="text-[var(--highlight)] font-medium flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Instrument Card 3 -->
+                <div class="bg-[var(--secondary)] rounded-xl overflow-hidden shadow-lg hover-grow transition-all duration-300">
+                    <div class="h-48 bg-[url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Bateria</h3>
+                        <p class="text-[var(--text)] opacity-80 mb-4">Conjunto de tambores e pratos que produzem sons quando percutidos.</p>
+                        <a href="#" class="text-[var(--highlight)] font-medium flex items-center">
+                            Saiba mais <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="md:w-1/2 relative flex justify-center">
-                <div class="relative">
-                    <div class="backboard"></div>
-                    <div class="hoop"></div>
-                    <div class="w-24 h-24 basketball absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-bounce" style="animation-delay: 0.5s;"></div>
-                </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border-2 border-[var(--highlight)] text-[var(--highlight)] hover:bg-[var(--highlight)] hover:text-white px-6 py-3 rounded-full font-semibold transition">
+                    Ver Todos os Instrumentos
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section id="stats" class="py-16 bg-white">
+    <!-- Famous Songs Section -->
+    <section id="songs" class="py-20 bg-[var(--secondary)]">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-16 relative">
-                <span class="relative z-10 px-4 bg-white">Basketball Stats</span>
-                <span class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-300 z-0"></span>
-            </h2>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-elegant">Músicas Famosas</h2>
+                <p class="max-w-2xl mx-auto text-[var(--text)] opacity-80">As músicas que marcaram gerações e continuam tocando corações.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Song Card 1 -->
+                <div class="bg-[var(--primary)] rounded-lg overflow-hidden shadow-lg hover-grow transition-all duration-300 group">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center group-hover:scale-110 transition duration-500"></div>
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <button class="bg-[var(--highlight)] text-white p-3 rounded-full hover:bg-opacity-90 transition">
+                                <i class="fas fa-play text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Bohemian Rhapsody</h3>
+                        <p class="text-[var(--text)] opacity-70 text-sm mb-2">Queen</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-[var(--highlight)]">1975</span>
+                            <div class="flex space-x-2">
+                                <button class="text-[var(--highlight)] hover:text-white transition">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="text-[var(--highlight)] hover:text-white transition">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Song Card 2 -->
+                <div class="bg-[var(--primary)] rounded-lg overflow-hidden shadow-lg hover-grow transition-all duration-300 group">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center group-hover:scale-110 transition duration-500"></div>
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <button class="bg-[var(--highlight)] text-white p-3 rounded-full hover:bg-opacity-90 transition">
+                                <i class="fas fa-play text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Imagine</h3>
+                        <p class="text-[var(--text)] opacity-70 text-sm mb-2">John Lennon</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-[var(--highlight)]">1971</span>
+                            <div class="flex space-x-2">
+                                <button class="text-[var(--highlight)] hover:text-white transition">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="text-[var(--highlight)] hover:text-white transition">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Song Card 3 -->
+                <div class="bg-[var(--primary)] rounded-lg overflow-hidden shadow-lg hover-grow transition-all duration-300 group">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center group-hover:scale-110 transition duration-500"></div>
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <button class="bg-[var(--highlight)] text-white p-3 rounded-full hover:bg-opacity-90 transition">
+                                <i class="fas fa-play text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Thriller</h3>
+                        <p class="text-[var(--text)] opacity-70 text-sm mb-2">Michael Jackson</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-[var(--highlight)]">1982</span>
+                            <div class="flex space-x-2">
+                                <button class="text-[var(--highlight)] hover:text-white transition">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="text-[var(--highlight)] hover:text-white transition">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Song Card 4 -->
+                <div class="bg-[var(--primary)] rounded-lg overflow-hidden shadow-lg hover-grow transition-all duration-300 group">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center group-hover:scale-110 transition duration-500"></div>
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                            <button class="bg-[var(--highlight)] text-white p-3 rounded-full hover:bg-opacity-90 transition">
+                                <i class="fas fa-play text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Like a Rolling Stone</h3>
+                        <p class="text-[var(--text)] opacity-70 text-sm mb-2">Bob Dylan</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-[var(--highlight)]">1965</span>
+                            <div class="flex space-x-2">
+                                <button class="text-[var(--highlight)] hover:text-white transition">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="text-[var(--highlight)] hover:text-white transition">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border-2 border-[var(--highlight)] text-[var(--highlight)] hover:bg-[var(--highlight)] hover:text-white px-6 py-3 rounded-full font-semibold transition">
+                    Ver Mais Músicas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artists Section -->
+    <section id="artists" class="py-20 bg-[var(--primary)]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-elegant">Artistas Legen&shy;dários</h2>
+                <p class="max-w-2xl mx-auto text-[var(--text)] opacity-80">Os músicos que moldaram a história da música.</p>
+            </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Stat 1 -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg hover-scale relative overflow-hidden">
-                    <div class="absolute -top-10 -right-10 w-32 h-32 basketball opacity-10 animate-spin"></div>
-                    <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 basketball animate-float mr-4"></div>
-                        <h3 class="text-2xl font-bold">Points Leaders</h3>
+                <!-- Artist 1 -->
+                <div class="bg-[var(--secondary)] rounded-xl p-6 flex flex-col items-center text-center hover-grow transition">
+                    <div class="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-[var(--highlight)]">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Freddie Mercury" class="w-full h-full object-cover">
                     </div>
-                    <ul class="space-y-4">
-                        <li class="flex justify-between items-center border-b pb-2">
-                            <span>1. Michael Jordan</span>
-                            <span class="font-bold">32,292</span>
-                        </li>
-                        <li class="flex justify-between items-center border-b pb-2">
-                            <span>2. LeBron James</span>
-                            <span class="font-bold">38,652</span>
-                        </li>
-                        <li class="flex justify-between items-center border-b pb-2">
-                            <span>3. Kareem Abdul-Jabbar</span>
-                            <span class="font-bold">38,387</span>
-                        </li>
-                    </ul>
+                    <h3 class="text-xl font-semibold mb-1">Freddie Mercury</h3>
+                    <p class="text-[var(--highlight)] text-sm mb-3">Queen</p>
+                    <p class="text-[var(--text)] opacity-80 mb-4">Vocalista lendário da banda Queen, conhecido por sua voz poderosa e performances cativantes.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-[var(--highlight)] hover:text-white transition">
+                            <i class="fab fa-spotify"></i>
+                        </a>
+                        <a href="#" class="text-[var(--highlight)] hover:text-white transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="text-[var(--highlight)] hover:text-white transition">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </div>
                 </div>
                 
-                <!-- Stat 2 -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg hover-scale relative overflow-hidden">
-                    <div class="absolute -bottom-10 -left-10 w-32 h-32 basketball opacity-10 animate-spin" style="animation-direction: reverse;"></div>
-                    <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 basketball animate-bounce mr-4"></div>
-                        <h3 class="text-2xl font-bold">Assists Leaders</h3>
+                <!-- Artist 2 -->
+                <div class="bg-[var(--secondary)] rounded-xl p-6 flex flex-col items-center text-center hover-grow transition">
+                    <div class="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-[var(--highlight)]">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="John Lennon" class="w-full h-full object-cover">
                     </div>
-                    <ul class="space-y-4">
-                        <li class="flex justify-between items-center border-b pb-2">
-                            <span>1. John Stockton</span>
-                            <span class="font-bold">15,806</span>
-                        </li>
-                        <li class="flex justify-between items-center border-b pb-2">
-                            <span>2. Jason Kidd</span>
-                            <span class="font-bold">12,091</span>
-                        </li>
-                        <li class="flex justify-between items-center border-b pb-2">
-                            <span>3. Chris Paul</span>
-                            <span class="font-bold">11,501</span>
-                        </li>
-                    </ul>
+                    <h3 class="text-xl font-semibold mb-1">John Lennon</h3>
+                    <p class="text-[var(--highlight)] text-sm mb-3">The Beatles</p>
+                    <p class="text-[var(--text)] opacity-80 mb-4">Co-fundador dos Beatles, sua música e ativismo pela paz deixaram um legado duradouro.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-[var(--highlight)] hover:text-white transition">
+                            <i class="fab fa-spotify"></i>
+                        </a>
+                        <a href="#" class="text-[var(--highlight)] hover:text-white transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="text-[var(--highlight)] hover:text-white transition">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </div>
                 </div>
                 
-                <!-- Stat 3 -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg hover-scale relative overflow-hidden">
-                    <div class="absolute -top-5 -left-5 w-20 h-20 basketball opacity-20 animate-float"></div>
-                    <div class="absolute -bottom-5 -right-5 w-20 h-20 basketball opacity-20 animate-float" style="animation-delay: 1s;"></div>
-                    <div class="flex items-center mb-6">
-                        <div class="w-16 h-16 basketball animate-dribble mr-4"></div>
-                        <h3 class="text-2xl font-bold">Rebounds Leaders</h3>
+                <!-- Artist 3 -->
+                <div class="bg-[var(--secondary)] rounded-xl p-6 flex flex-col items-center text-center hover-grow transition">
+                    <div class="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-[var(--highlight)]">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Aretha Franklin" class="w-full h-full object-cover">
                     </div>
-                    <ul class="space-y-4">
-                        <li class="flex justify-between items-center border-b pb-2">
-                            <span>1. Wilt Chamberlain</span>
-                            <span class="font-bold">23,924</span>
-                        </li>
-                        <li class="flex justify-between items-center border-b pb-2">
-                            <span>2. Bill Russell</span>
-                            <span class="font-bold">21,620</span>
-                        </li>
-                        <li class="flex justify-between items-center border-b pb-2">
-                            <span>3. Kareem Abdul-Jabbar</span>
-                            <span class="font-bold">17,440</span>
-                        </li>
-                    </ul>
+                    <h3 class="text-xl font-semibold mb-1">Aretha Franklin</h3>
+                    <p class="text-[var(--highlight)] text-sm mb-3">Soul/R&B</p>
+                    <p class="text-[var(--text)] opacity-80 mb-4">Conhecida como a "Rainha do Soul", sua voz poderosa e emotiva a tornou uma lenda.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-[var(--highlight)] hover:text-white transition">
+                            <i class="fab fa-spotify"></i>
+                        </a>
+                        <a href="#" class="text-[var(--highlight)] hover:text-white transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="text-[var(--highlight)] hover:text-white transition">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Players Section -->
-    <section id="players" class="py-16 bg-gray-100">
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-[var(--secondary)]">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-16 relative">
-                <span class="relative z-10 px-4 bg-gray-100">Legendary Players</span>
-                <span class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-300 z-0"></span>
-            </h2>
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 font-elegant">Sobre o Harmony Hub</h2>
+                <p class="text-lg mb-8">
+                    O Harmony Hub é um portal dedicado a celebrar a música em todas as suas formas. Nosso objetivo é educar, inspirar e conectar pessoas através da linguagem universal da música.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="bg-[var(--primary)] p-6 rounded-lg">
+                        <div class="text-[var(--highlight)] text-3xl mb-4">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Exploração</h3>
+                        <p class="text-[var(--text)] opacity-80">Descubra instrumentos, gêneros e artistas de todo o mundo.</p>
+                    </div>
+                    
+                    <div class="bg-[var(--primary)] p-6 rounded-lg">
+                        <div class="text-[var(--highlight)] text-3xl mb-4">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Educação</h3>
+                        <p class="text-[var(--text)] opacity-80">Aprenda sobre teoria musical, história e técnicas.</p>
+                    </div>
+                    
+                    <div class="bg-[var(--primary)] p-6 rounded-lg">
+                        <div class="text-[var(--highlight)] text-3xl mb-4">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Comunidade</h3>
+                        <p class="text-[var(--text)] opacity-80">Conecte-se com outros amantes da música e compartilhe sua paixão.</p>
+                    </div>
+                </div>
+                
+                <a href="#" class="inline-block bg-[var(--highlight)] hover:bg-opacity-90 text-white px-8 py-3 rounded-full font-semibold transition hover-grow">
+                    Junte-se à Nossa Comunidade
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-[var(--primary)]">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto bg-[var(--secondary)] rounded-xl p-8 text-center">
+                <h2 class="text-2xl font-bold mb-4 font-elegant">Assine Nossa Newsletter</h2>
+                <p class="mb-6">Receba atualizações sobre novos conteúdos, artistas e eventos musicais diretamente em seu e-mail.</p>
+                
+                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input type="email" placeholder="Seu e-mail" class="flex-grow px-4 py-2 rounded-full bg-[var(--primary)] border border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--highlight)]">
+                    <button type="submit" class="bg-[var(--highlight)] hover:bg-opacity-90 text-white px-6 py-2 rounded-full font-medium transition">
+                        Assinar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--secondary)] border-t border-[var(--accent)] py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-music text-2xl text-[var(--highlight)]"></i>
+                        <h3 class="text-xl font-bold font-elegant">Harmony Hub</h3>
+                    </div>
+                    <p class="text-[var(--text)] opacity-80 mb-4">Seu portal completo para explorar o mundo da música.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 border-b border-[var(--accent)] pb-2">Explorar</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">Instrumentos</a></li>
+                        <li><a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">Gêneros Musicais</a></li>
+                        <li><a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">Artistas</a></li>
+                        <li><a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">Músicas Famosas</a></li>
+                        <li><a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">Eventos</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 border-b border-[var(--accent)] pb-2">Aprender</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">Tutoriais</a></li>
+                        <li><a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">Teoria Musical</a></li>
+                        <li><a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">História da Música</a></li>
+                        <li><a href="#" class="text-[var(--text)] hover:text-[var(--highlight)] transition">Dicas para Iniciantes</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 border-b border-[var(--accent)] pb-2">Contato</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-[var(--highlight)] mt-1 mr-2"></i>
+                            <span class="text-[var(--text)] opacity-80">123 Music Street, Cidade Harmônica</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-[var(--highlight)] mr-2"></i>
+                            <span class="text-[var(--text)] opacity-80">(11) 98765-4321</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-[var(--highlight)] mr-2"></i>
+                            <span class="text-[var(--text)] opacity-80">contato@harmonyhub.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Player 1 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-scale transform transition">
-                    <div class="relative h-64 bg-gradient-to-b from-blue-900 to-blue-700 flex items-end justify-center">
-                        <div class="absolute top-4 right-4 w-12 h-12 basketball animate-float"></div>
-                        <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/893.png" alt="Michael Jordan" class="h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Michael Jordan</h3>
-                        <p class="text-gray-600 mb-4">6× NBA champion, 5× MVP, 14× All-Star</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm font-semibold text-orange-500">Chicago Bulls</span>
-                            <span class="text-xs bg-gray-200 px-2 py-1 rounded">SG</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="border-t border-[var(--accent)] mt-12 pt-8 text-center text-sm text-[var(--text)] opacity-70">
+                <p>&copy; 2023 Harmony Hub. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Accessibility Panel Toggle
+        const accessibilityBtn = document.getElementById('accessibility-btn');
+        const accessibilityPanel = document.getElementById('accessibility-panel');
+        
+        accessibilityBtn.addEventListener('click', () => {
+            accessibilityPanel.classList.toggle('hidden');
+        });
+        
+        // Font Size Controls
+        const fontSizes = {
+            small: 'font-size-small',
+            medium: 'font-size-medium',
+            large: 'font-size-large'
+        };
+        
+        const fontStyleBtns = document.querySelectorAll('.font-size-btn');
+        fontStyleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove all font size classes first
+                document.body.classList.remove(...Object.values(fontSizes));
                 
-                <!-- Player 2 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-scale transform transition">
-                    <div class="relative h-64 bg-gradient-to-b from-purple-900 to-purple-700 flex items-end justify-center">
-                        <div class="absolute top-4 left-4 w-12 h-12 basketball animate-bounce"></div>
-                        <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png" alt="LeBron James" class="h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">LeBron James</h3>
-                        <p class="text-gray-600 mb-4">4× NBA champion, 4× MVP, 19× All-Star</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm font-semibold text-orange-500">Los Angeles Lakers</span>
-                            <span class="text-xs bg-gray-200 px-2 py-1 rounded">SF</span>
-                        </div>
-                    </div>
-                </div>
+                // Add selected class
+                const size = btn.dataset.size;
+                document.body.classList.add(fontSizes[size]);
                 
-                <!-- Player 3 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-scale transform transition">
-                    <div class="relative h-64 bg-gradient-to-b from-green-900 to-green-700 flex items-end justify-center">
-                        <div class="absolute bottom-4 right-4 w-12 h-12 basketball animate-spin"></div>
-                        <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/76003.png" alt="Kobe Bryant" class="h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Kobe Bryant</h3>
-                        <p class="text-gray-600 mb-4">5× NBA champion, 1× MVP, 18× All-Star</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm font-semibold text-orange-500">Los Angeles Lakers</span>
-                            <span class="text-xs bg-gray-200 px-2 py-1 rounded">SG</span>
-                        </div>
-                    </div>
-                </div>
+                // Update active button style
+                fontStyleBtns.forEach(b => b.classList.remove('bg-[var(--highlight)]'));
+                btn.classList.add('bg-[var(--highlight)]');
+            });
+        });
+        
+        // Font Style Controls
+        const fontStyles = {
+            normal: 'font-style-normal',
+            dyslexic: 'font-style-dyslexic'
+        };
+        
+        const fontTypeBtns = document.querySelectorAll('.font-style-btn');
+        fontTypeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove all font style classes first
+                document.body.classList.remove(...Object.values(fontStyles));
                 
-                <!-- Player 4 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-scale transform transition">
-                    <div class="relative h-64 bg-gradient-to-b from-red-900 to-red-700 flex items-end justify-center">
-                        <div class="absolute top-
-</html>
+                // Add selected class
+                const font = btn.dataset.font;
+                document.body.classList.add(fontStyles[font]);
+                
+                // Update active button style
+                fontTypeBtns.forEach(b => b.classList.remove('bg-[var(--highlight)]'));
+                btn.classList.add('bg-[var(--highlight)]');
+            });
+        });
+        
+        // Color Scheme Controls
+        const colorSchemes = {
+            dark: 'color-scheme-dark',
+            light: 'color-scheme-light',
+            highContrast: 'color-scheme-high-contrast'
+        };
+        
+        const colorSchemeBtns = document.querySelectorAll('.color-scheme-btn');
+        colorSchemeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove all color scheme classes first
+                document.body.classList.remove(...Object.values(colorSchemes));
+                
+                // Add selected class
+                const scheme = btn.dataset.scheme;
+                if (scheme === 'high-contrast') {
+                    document.body.classList.add(colorSchemes.highContrast);
+                } else {
+                    document.body.classList.add(colorSchemes[scheme]);
+                }
+                
+                // Update active button style
+                colorSchemeBtns.forEach(b => b.classList.remove('bg-[var(--highlight)]'));
+                btn.classList.add('bg-[var(--highlight)]');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+                        </html>
